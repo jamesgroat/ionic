@@ -138,7 +138,9 @@ export class Checkbox extends Ion implements IonicTapInput, AfterContentInit, Co
     console.debug('checkbox, checked');
     ev.preventDefault();
     ev.stopPropagation();
-    this.onChange(!this._checked);
+    if (!this._disabled) {
+      this.onChange(!this._checked);
+    }
   }
 
   /**
@@ -158,7 +160,7 @@ export class Checkbox extends Ion implements IonicTapInput, AfterContentInit, Co
    * @private
    */
   _setChecked(isChecked: boolean) {
-    if (!this._disabled && isChecked !== this._checked) {
+    if (isChecked !== this._checked) {
       this._checked = isChecked;
       if (this._init) {
         this.ionChange.emit(this);
